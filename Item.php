@@ -71,6 +71,23 @@ class Item{
 			return false;
 		}
 	}
+
+	public function delete(){
+		$query = "DELETE FROM " . $this->table_name . " WHERE item_id = :item_id";
+		$stmt = $this->conn->prepare($query);
+
+		$this->item_id=htmlspecialchars(strip_tags($this->item_id));
+
+		$stmt->bindParam(":item_id", $this->item_id);
+
+		try{
+			$stmt->execute();
+			return true;
+		}catch(PDOException $e){
+			echo "Error". $e->getMessage();
+			return false;
+		}
+	}
 }
 
 ?>

@@ -238,6 +238,33 @@
 		        });
 	        }
 		});
+
+		$(document).on("click", ".btnDel", function(){
+			var key=$(this).attr("id").split("_");
+			if(confirm("Are you sure you want to delete?")){
+				$.ajax({
+		            url: "item/deleteData.php",
+		            type: "POST",
+		            dataType:'json',
+		            data:{"item_id":key[1]},
+		            success: function(response){
+		            	//alert(response);
+		              //alert("Record added successfully!");
+		              if(response.status == 'false')
+		              {
+		               alert("Could not delete");
+		              }
+		              else
+		              {
+		              	alert("Successfully deleted");
+		              }
+		            },
+		            complete:function(){
+		              window.location="index.php";
+		            }
+		        });
+			}
+		});
 	});
 </script>
 </html>
